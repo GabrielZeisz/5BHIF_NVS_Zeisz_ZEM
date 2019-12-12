@@ -4,7 +4,7 @@ package com.nvs.zeisz.nvs.presentation;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nvs.zeisz.nvs.NvsApplication;
 import com.nvs.zeisz.nvs.model.*;
-import com.nvs.zeisz.nvs.service.PlannerDto;
+import com.nvs.zeisz.nvs.service.dtos.PlannerDto;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

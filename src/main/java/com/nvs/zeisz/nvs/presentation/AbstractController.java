@@ -1,6 +1,6 @@
 package com.nvs.zeisz.nvs.presentation;
 
-import com.nvs.zeisz.nvs.service.AbstractDto;
+import com.nvs.zeisz.nvs.service.dtos.AbstractDto;
 import org.springframework.hateoas.Link;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;

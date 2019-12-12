@@ -3,7 +3,7 @@ package com.nvs.zeisz.nvs.presentation;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nvs.zeisz.nvs.NvsApplication;
 import com.nvs.zeisz.nvs.model.*;
-import com.nvs.zeisz.nvs.service.PlanDto;
+import com.nvs.zeisz.nvs.service.dtos.PlanDto;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -1,4 +1,4 @@
-package com.nvs.zeisz.nvs.service;
+package com.nvs.zeisz.nvs.service.dtos;
 
 
 import lombok.*;

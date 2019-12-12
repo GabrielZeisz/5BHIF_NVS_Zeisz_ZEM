@@ -12,4 +12,5 @@ import java.util.Optional;
 public interface PersonRepository extends JpaRepository<Person, Long> {
     Optional<Person> findByIdentifier(String identifier);
     void deleteByIdentifier(String identifier);
+    Optional<Person> findByName(String name);
 }

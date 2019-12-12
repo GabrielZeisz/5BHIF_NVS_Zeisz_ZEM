@@ -2,6 +2,7 @@ package com.nvs.zeisz.nvs.service;
 
 import com.nvs.zeisz.nvs.model.Plan;
 import com.nvs.zeisz.nvs.persistence.PlanRepository;
+import com.nvs.zeisz.nvs.service.dtos.PlanDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,7 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 @RequiredArgsConstructor(onConstructor_ = {@Autowired})
-public class UseCasePlanService {
+public class PlanService {
 
     private final PlanRepository planRepository;
 

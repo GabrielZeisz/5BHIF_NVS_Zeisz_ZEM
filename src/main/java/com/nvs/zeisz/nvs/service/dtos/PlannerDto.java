@@ -1,4 +1,4 @@
-package com.nvs.zeisz.nvs.service;
+package com.nvs.zeisz.nvs.service.dtos;
 
 import com.nvs.zeisz.nvs.model.Person;
 import com.nvs.zeisz.nvs.model.Plan;

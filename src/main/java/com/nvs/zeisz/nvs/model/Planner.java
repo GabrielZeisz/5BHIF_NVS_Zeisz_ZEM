@@ -1,7 +1,7 @@
 package com.nvs.zeisz.nvs.model;
 
 
-import com.nvs.zeisz.nvs.service.PlannerDto;
+import com.nvs.zeisz.nvs.service.dtos.PlannerDto;
 import lombok.*;
 
 import javax.persistence.*;

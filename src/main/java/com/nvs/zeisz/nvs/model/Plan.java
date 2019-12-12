@@ -1,6 +1,6 @@
 package com.nvs.zeisz.nvs.model;
 
-import com.nvs.zeisz.nvs.service.PlanDto;
+import com.nvs.zeisz.nvs.service.dtos.PlanDto;
 import lombok.*;
 
 import javax.persistence.CascadeType;

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nvs.zeisz.nvs.NvsApplication;
 import com.nvs.zeisz.nvs.model.Jobs;
 import com.nvs.zeisz.nvs.model.Person;
-import com.nvs.zeisz.nvs.service.PersonDto;
+import com.nvs.zeisz.nvs.service.dtos.PersonDto;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

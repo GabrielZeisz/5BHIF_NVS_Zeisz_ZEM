@@ -1,4 +1,4 @@
-package com.nvs.zeisz.nvs.service;
+package com.nvs.zeisz.nvs.service.dtos;
 
 import com.nvs.zeisz.nvs.model.Jobs;
 import com.nvs.zeisz.nvs.model.Person;
@@ -14,6 +14,8 @@ import java.time.LocalDate;
 public class PersonDto extends AbstractDto {
     private String name;
 
+    private String password;
+
     private LocalDate bday;
 
     private Jobs job;
@@ -23,6 +25,7 @@ public class PersonDto extends AbstractDto {
     public PersonDto(Person person) {
         super(person.getIdentifier());
         this.name = person.getName();
+        this.password = person.getPassword();
         this.bday = person.getBday();
         this.job = person.getJob();
         this.address = person.getAddress();

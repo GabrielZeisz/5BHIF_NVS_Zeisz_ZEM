@@ -1,7 +1,7 @@
 package com.nvs.zeisz.nvs.presentation;
 
-import com.nvs.zeisz.nvs.service.PlannerDto;
-import com.nvs.zeisz.nvs.service.UseCasePlannerService;
+import com.nvs.zeisz.nvs.service.dtos.PlannerDto;
+import com.nvs.zeisz.nvs.service.PlannerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,31 +14,32 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor(onConstructor_ = {@Autowired})
 @Slf4j
+@RequestMapping(path = "/xplanners")
 public class PlannerController extends AbstractController<PlannerDto> {
-    private final UseCasePlannerService useCasePlannerService;
+    private final PlannerService plannerService;
 
-    @GetMapping(path = "/xplanners")
+    @GetMapping
     public ResponseEntity<List<PlannerDto>> findAll() {
-        return ResponseEntity.ok(useCasePlannerService.findAllPlanners()
+        return ResponseEntity.ok(plannerService.findAllPlanners()
                 .stream().map(this::addSelfLink).collect(Collectors.toList()));
     }
 
-    @PostMapping(path = "/xplanners")
+    @PostMapping
     public ResponseEntity<PlannerDto> create(@RequestBody PlannerDto planner) {
         log.info("Create with: {}", planner);
-        return ResponseEntity.ok(useCasePlannerService.savePlanner(planner)
+        return ResponseEntity.ok(plannerService.savePlanner(planner)
                 .map(this::addSelfLink)
                 .orElseThrow(IllegalArgumentException::new));
     }
 
-    @GetMapping(path = "/xplanners/{identifier}")
+    @GetMapping(params = "/identifier")
     public ResponseEntity<PlannerDto> findByIdentifier(@PathVariable String identifier) {
-        return ResponseEntity.of(useCasePlannerService.findPlannerByIdentifier(identifier).map(this::addSelfLink));
+        return ResponseEntity.of(plannerService.findPlannerByIdentifier(identifier).map(this::addSelfLink));
     }
 
-    @DeleteMapping(path = "/xplanners/{identifier}")
+    @DeleteMapping(params = "identifier")
     public ResponseEntity<Void> delete(@PathVariable String identifier) {
-        useCasePlannerService.deletePlanner(identifier);
+        plannerService.deletePlanner(identifier);
         return ResponseEntity.ok().build();
     }
 }

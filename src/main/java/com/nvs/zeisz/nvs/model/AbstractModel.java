@@ -1,6 +1,6 @@
 package com.nvs.zeisz.nvs.model;
 
-import com.nvs.zeisz.nvs.service.AbstractDto;
+import com.nvs.zeisz.nvs.service.dtos.AbstractDto;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
