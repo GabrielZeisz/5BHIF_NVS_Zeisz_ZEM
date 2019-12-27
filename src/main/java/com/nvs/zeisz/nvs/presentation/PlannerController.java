@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor(onConstructor_ = {@Autowired})
 @Slf4j
 @RequestMapping(path = "/xplanners")
+@CrossOrigin
 public class PlannerController extends AbstractController<PlannerDto> {
     private final PlannerService plannerService;
 

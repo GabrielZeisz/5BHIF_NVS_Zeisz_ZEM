@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor(onConstructor_ = {@Autowired})
 @Slf4j
 @RequestMapping(path = "/persons")
+@CrossOrigin
 public class PersonController extends AbstractController<PersonDto> {
 
     private final PersonService personService;
@@ -59,9 +60,9 @@ public class PersonController extends AbstractController<PersonDto> {
         HttpStatus httpStatus = authenticated ? HttpStatus.OK : HttpStatus.UNAUTHORIZED;
 
         if(httpStatus == HttpStatus.OK)
-
             return ResponseEntity.ok(personService.findByName(personDto.getName()).get());
         else
+            // auch wenn User noch nicht vorhanden ist, wird ein UNAUTHORIZED zurückgegeben!
             return new ResponseEntity(HttpStatus.UNAUTHORIZED);
 
     }
