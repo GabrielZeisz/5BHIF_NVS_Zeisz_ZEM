@@ -50,7 +50,6 @@ public class PlanControllerTest {
     private Planner planner = Planner.builder()
             .appointment("Having dinner with family")
             .date(LocalDate.of(2019, 4, 15))
-            .person(person)
             .priority(4)
             .time(LocalTime.of(18, 30))
             .type(Type.family)

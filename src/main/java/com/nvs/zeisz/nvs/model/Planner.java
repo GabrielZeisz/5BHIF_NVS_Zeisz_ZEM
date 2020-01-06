@@ -30,9 +30,6 @@ public class Planner extends AbstractModel {
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Plan plan;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
-    private Person person;
-
     public Planner(PlannerDto plannerDto) {
         super(plannerDto);
         this.date = plannerDto.getDate();
@@ -41,7 +38,6 @@ public class Planner extends AbstractModel {
         this.type = plannerDto.getType();
         this.time = plannerDto.getTime();
         this.plan = plannerDto.getPlan();
-        this.person = plannerDto.getPerson();
     }
 
 }

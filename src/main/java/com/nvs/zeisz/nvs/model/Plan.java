@@ -16,7 +16,7 @@ import java.util.List;
 @Entity
 @Getter
 public class Plan extends AbstractModel {
-
+    
     @OneToMany(mappedBy = "plan", cascade = CascadeType.PERSIST)
     private List<Planner> plan = new ArrayList<>();
 

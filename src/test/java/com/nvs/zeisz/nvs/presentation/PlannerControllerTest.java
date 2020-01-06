@@ -32,19 +32,11 @@ public class PlannerControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    private Person person = Person.builder()
-            .name("Maria Steiner")
-            .bday(LocalDate.of(1999, 3, 17))
-            .job(Jobs.constructionworker)
-            .address("Podersdorf Winklergasse 12")
-            .build();
-
     private Plan plan;
 
     private Planner planner = Planner.builder()
             .appointment("Having dinner with family")
             .date(LocalDate.of(2019, 4, 15))
-            .person(person)
             .priority(4)
             .time(LocalTime.of(18, 30))
             .type(Type.family)

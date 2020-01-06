@@ -22,7 +22,6 @@ public class PlannerDto extends AbstractDto {
     private Type type;
     private LocalTime time;
     private Plan plan;
-    private Person person;
 
     public PlannerDto(Planner planner) {
         super(planner.getIdentifier());
@@ -32,7 +31,6 @@ public class PlannerDto extends AbstractDto {
         this.type = planner.getType();
         this.time = planner.getTime();
         this.plan = planner.getPlan();
-        this.person = planner.getPerson();
     }
 
 }

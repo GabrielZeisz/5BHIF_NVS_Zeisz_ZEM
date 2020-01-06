@@ -2,6 +2,7 @@ package com.nvs.zeisz.nvs.service.dtos;
 
 import com.nvs.zeisz.nvs.model.Jobs;
 import com.nvs.zeisz.nvs.model.Person;
+import com.nvs.zeisz.nvs.model.Plan;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -22,6 +23,8 @@ public class PersonDto extends AbstractDto {
 
     private String address;
 
+    private Plan plan;
+
     public PersonDto(Person person) {
         super(person.getIdentifier());
         this.name = person.getName();
@@ -29,5 +32,6 @@ public class PersonDto extends AbstractDto {
         this.bday = person.getBday();
         this.job = person.getJob();
         this.address = person.getAddress();
+        this.plan = person.getPlan();
     }
 }

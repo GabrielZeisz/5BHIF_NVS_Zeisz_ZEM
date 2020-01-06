@@ -3,9 +3,7 @@ package com.nvs.zeisz.nvs.model;
 import com.nvs.zeisz.nvs.service.dtos.PersonDto;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 
@@ -23,11 +21,16 @@ public class Person extends AbstractModel {
     private String password;
 
     private LocalDate bday;
+
     @Enumerated(EnumType.STRING)
     private Jobs job;
 
-
     private String address;
+
+    @OneToOne(cascade = CascadeType.PERSIST)
+    private Plan plan;
+
+
 
     public Person(PersonDto personDto) {
         super(personDto);
