@@ -4,6 +4,7 @@ import com.nvs.zeisz.nvs.model.Person;
 import com.nvs.zeisz.nvs.persistence.PersonRepository;
 import com.nvs.zeisz.nvs.service.dtos.PersonDto;
 import lombok.RequiredArgsConstructor;
+import org.apache.tomcat.websocket.AuthenticationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -59,19 +60,18 @@ public class PersonService {
         if(personRepository.findByName(personDto.getName()).isPresent()){
             throw new UsernameNotFoundException("Username is already taken!");
         }
+//        Person person = Optional.of(personDto).map(Person::new).get();
+        personDto.setPassword(passwordEncoder.encode(personDto.getPassword()));
         Person person = Optional.of(personDto).map(Person::new).get();
-        person.setPassword(passwordEncoder.encode(person.getPassword()));
         return Optional.of(personRepository.save(person)).map(PersonDto::new);
     }
 
-    public boolean loginAccount(PersonDto personDto){
-        Person loginUser =  Optional.of(personDto).map(Person::new).get();
-        Person checkUser = personRepository.findByName(loginUser.getName())
+    public PersonDto loginAccount(PersonDto personDto) throws AuthenticationException{
+//        Person loginUser =  Optional.of(personDto).map(Person::new).get();
+        Person checkUser = personRepository.findByName(personDto.getName())
                 .orElseThrow(() -> new UsernameNotFoundException("Invalid Username or password!"));
-        boolean test =  passwordEncoder.
-                matches(
-                        loginUser.getPassword(),
-                        checkUser.getPassword());
-        return test;
+       if(passwordEncoder.matches(personDto.getPassword(), checkUser.getPassword()))
+        return Optional.of(checkUser).map(PersonDto::new).get();
+       throw new AuthenticationException("Username and password don't match");
     }
 }

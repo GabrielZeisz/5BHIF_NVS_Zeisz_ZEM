@@ -56,15 +56,20 @@ public class PersonController extends AbstractController<PersonDto> {
 
     @PostMapping(path="/login")
     public ResponseEntity<PersonDto> authenticateUser(@RequestBody PersonDto personDto){
-        boolean authenticated = personService.loginAccount(personDto);
-        HttpStatus httpStatus = authenticated ? HttpStatus.OK : HttpStatus.UNAUTHORIZED;
-
-        if(httpStatus == HttpStatus.OK)
-            return ResponseEntity.ok(personService.findByName(personDto.getName()).get());
-        else
-            // auch wenn User noch nicht vorhanden ist, wird ein UNAUTHORIZED zurückgegeben!
-            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
-
+//        boolean authenticated = personService.loginAccount(personDto);
+//        HttpStatus httpStatus = authenticated ? HttpStatus.OK : HttpStatus.UNAUTHORIZED;
+//
+//        if(httpStatus == HttpStatus.OK)
+//            return ResponseEntity.ok(personService.findByName(personDto.getName()).get());
+//        else
+//            // auch wenn User noch nicht vorhanden ist, wird ein UNAUTHORIZED zurückgegeben!
+//            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        try {
+            return ResponseEntity.ok(personService.loginAccount(personDto));
+        }
+        catch (Exception e){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
     }
 
     @PostMapping(path="/register")

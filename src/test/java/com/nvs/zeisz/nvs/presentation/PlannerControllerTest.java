@@ -26,72 +26,72 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = NvsApplication.class)
 @AutoConfigureMockMvc
 public class PlannerControllerTest {
-    @Autowired
-    private ObjectMapper jsonMapper;
-
-    @Autowired
-    private MockMvc mockMvc;
-
-    private Plan plan;
-
-    private Planner planner = Planner.builder()
-            .appointment("Having dinner with family")
-            .date(LocalDate.of(2019, 4, 15))
-            .priority(4)
-            .time(LocalTime.of(18, 30))
-            .type(Type.family)
-            .plan(plan)
-            .build();
-
-    @Test
-    void findAllPlanners() throws Exception {
-        mockMvc.perform(get("/xplanners"))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    void createPlanner() throws Exception {
-        mockMvc.perform(
-                post("/xplanners")
-                        .contentType(MediaType.APPLICATION_JSON_UTF8)
-                        .content(jsonMapper.writeValueAsString(planner)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.identifier").exists());
-    }
-
-    @Test
-    void findPlannerById() throws Exception {
-
-        MvcResult result = mockMvc.perform(
-                post("/xplanners")
-                        .contentType(MediaType.APPLICATION_JSON_UTF8)
-                        .content(jsonMapper.writeValueAsString(planner))
-        ).andExpect(status().isOk())
-                .andReturn();
-
-        PlannerDto plannerDto = jsonMapper.readValue(result.getResponse().getContentAsString(), PlannerDto.class);
-
-        mockMvc.perform(
-                get("/xplanners/" + plannerDto.getIdentifier()))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.identifier").value(plannerDto.getIdentifier()));
-    }
-
-    @Test
-    void deletePlanner() throws Exception {
-        MvcResult result = mockMvc.perform(post("/xplanners")
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(jsonMapper.writeValueAsString(planner))
-        ).andReturn();
-
-        PlannerDto plannerDto = jsonMapper.readValue(result.getResponse().getContentAsString(), PlannerDto.class);
-
-        mockMvc.perform(delete("/xplanners/" + plannerDto.getIdentifier())
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-        ).andExpect(status().isOk());
-
-        mockMvc.perform(get("/xplanners/" + plannerDto.getIdentifier())
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-        ).andExpect(status().isNotFound());
-    }
+//    @Autowired
+//    private ObjectMapper jsonMapper;
+//
+//    @Autowired
+//    private MockMvc mockMvc;
+//
+//    private Plan plan;
+//
+//    private Planner planner = Planner.builder()
+//            .appointment("Having dinner with family")
+//            .date(LocalDate.of(2019, 4, 15))
+//            .priority(4)
+//            .time(LocalTime.of(18, 30))
+//            .type(Type.family)
+//            .plan(plan)
+//            .build();
+//
+//    @Test
+//    void findAllPlanners() throws Exception {
+//        mockMvc.perform(get("/xplanners"))
+//                .andExpect(status().isOk());
+//    }
+//
+//    @Test
+//    void createPlanner() throws Exception {
+//        mockMvc.perform(
+//                post("/xplanners")
+//                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+//                        .content(jsonMapper.writeValueAsString(planner)))
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$.identifier").exists());
+//    }
+//
+//    @Test
+//    void findPlannerById() throws Exception {
+//
+//        MvcResult result = mockMvc.perform(
+//                post("/xplanners")
+//                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+//                        .content(jsonMapper.writeValueAsString(planner))
+//        ).andExpect(status().isOk())
+//                .andReturn();
+//
+//        PlannerDto plannerDto = jsonMapper.readValue(result.getResponse().getContentAsString(), PlannerDto.class);
+//
+//        mockMvc.perform(
+//                get("/xplanners/" + plannerDto.getIdentifier()))
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$.identifier").value(plannerDto.getIdentifier()));
+//    }
+//
+//    @Test
+//    void deletePlanner() throws Exception {
+//        MvcResult result = mockMvc.perform(post("/xplanners")
+//                .contentType(MediaType.APPLICATION_JSON_UTF8)
+//                .content(jsonMapper.writeValueAsString(planner))
+//        ).andReturn();
+//
+//        PlannerDto plannerDto = jsonMapper.readValue(result.getResponse().getContentAsString(), PlannerDto.class);
+//
+//        mockMvc.perform(delete("/xplanners/" + plannerDto.getIdentifier())
+//                .contentType(MediaType.APPLICATION_JSON_UTF8)
+//        ).andExpect(status().isOk());
+//
+//        mockMvc.perform(get("/xplanners/" + plannerDto.getIdentifier())
+//                .contentType(MediaType.APPLICATION_JSON_UTF8)
+//        ).andExpect(status().isNotFound());
+//    }
 }

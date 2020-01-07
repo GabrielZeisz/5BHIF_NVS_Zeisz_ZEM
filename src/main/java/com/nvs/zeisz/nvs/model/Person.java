@@ -22,9 +22,6 @@ public class Person extends AbstractModel {
 
     private LocalDate bday;
 
-    @Enumerated(EnumType.STRING)
-    private Jobs job;
-
     private String address;
 
     @OneToOne(cascade = CascadeType.PERSIST)
@@ -37,7 +34,6 @@ public class Person extends AbstractModel {
         this.name = personDto.getName();
         this.password = personDto.getPassword();
         this.bday = personDto.getBday();
-        this.job = personDto.getJob();
         this.address = personDto.getAddress();
     }
 }

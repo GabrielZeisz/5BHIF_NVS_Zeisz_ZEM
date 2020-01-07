@@ -1,12 +1,11 @@
 package com.nvs.zeisz.nvs.service.dtos;
 
-import com.nvs.zeisz.nvs.model.Person;
 import com.nvs.zeisz.nvs.model.Plan;
 import com.nvs.zeisz.nvs.model.Planner;
-import com.nvs.zeisz.nvs.model.Type;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Getter
@@ -16,20 +15,20 @@ import java.time.LocalTime;
 @AllArgsConstructor
 public class PlannerDto extends AbstractDto {
 
-    private LocalDate date;
-    private String appointment;
-    private int priority;
-    private Type type;
-    private LocalTime time;
+    private String name;
+    private String details;
+    private String start;
+    private String end;
+    private String color;
     private Plan plan;
 
     public PlannerDto(Planner planner) {
         super(planner.getIdentifier());
-        this.date = planner.getDate();
-        this.appointment = planner.getAppointment();
-        this.priority = planner.getPriority();
-        this.type = planner.getType();
-        this.time = planner.getTime();
+        this.name = planner.getName();
+        this.details = planner.getDetails();
+        this.start = planner.getStart();
+        this.end = planner.getEnd();
+        this.color = planner.getColor();
         this.plan = planner.getPlan();
     }
 
