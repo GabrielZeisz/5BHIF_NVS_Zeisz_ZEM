@@ -19,11 +19,6 @@ import java.util.UUID;
 @Getter
 public class AbstractModel extends AbstractPersistable<Long> {
 
-    @Id
-    @GeneratedValue
-    @Setter
-    private Long id;
-
     @NotNull
     protected String identifier = UUID.randomUUID().toString();
 

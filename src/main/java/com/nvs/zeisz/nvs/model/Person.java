@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -24,10 +25,8 @@ public class Person extends AbstractModel {
 
     private String address;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
-    private Plan plan;
-
-
+    @OneToMany(cascade = CascadeType.PERSIST)
+    private List<Planner> planner;
 
     public Person(PersonDto personDto) {
         super(personDto);
@@ -35,5 +34,6 @@ public class Person extends AbstractModel {
         this.password = personDto.getPassword();
         this.bday = personDto.getBday();
         this.address = personDto.getAddress();
+        this.planner = personDto.getPlanner();
     }
 }

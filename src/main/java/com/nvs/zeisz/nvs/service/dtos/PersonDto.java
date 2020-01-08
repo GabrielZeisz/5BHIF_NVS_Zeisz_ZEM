@@ -1,16 +1,18 @@
 package com.nvs.zeisz.nvs.service.dtos;
 
 import com.nvs.zeisz.nvs.model.Person;
-import com.nvs.zeisz.nvs.model.Plan;
+import com.nvs.zeisz.nvs.model.Planner;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class PersonDto extends AbstractDto {
     private String name;
 
@@ -20,7 +22,7 @@ public class PersonDto extends AbstractDto {
 
     private String address;
 
-    private Plan plan;
+    private List<Planner> planner;
 
     public PersonDto(Person person) {
         super(person.getIdentifier());
@@ -28,6 +30,6 @@ public class PersonDto extends AbstractDto {
         this.password = person.getPassword();
         this.bday = person.getBday();
         this.address = person.getAddress();
-        this.plan = person.getPlan();
+        this.planner = person.getPlanner();
     }
 }
