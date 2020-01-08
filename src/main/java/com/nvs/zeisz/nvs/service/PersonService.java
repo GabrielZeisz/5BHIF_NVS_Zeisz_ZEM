@@ -8,6 +8,9 @@ import com.nvs.zeisz.nvs.service.dtos.PlannerDto;
 import lombok.RequiredArgsConstructor;
 import org.apache.tomcat.websocket.AuthenticationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -23,11 +26,11 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 @RequiredArgsConstructor(onConstructor_ = {@Autowired})
-public class PersonService {
+public class PersonService implements UserDetailsService {
 
     private final PlannerService plannerService;
     private final PersonRepository personRepository;
-    private final BCryptPasswordEncoder passwordEncoder;
+    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();;
 
     public List<PersonDto> findAllPersons() {
         return personRepository
@@ -43,7 +46,6 @@ public class PersonService {
                 .map(PersonDto::new);
     }
 
-
     public Optional<PersonDto> findPersonByIdentifier(String identifier) {
         return personRepository
                 .findByIdentifier(identifier)
@@ -54,8 +56,8 @@ public class PersonService {
         return new PersonDto(model);
     }
 
-    public Optional<PersonDto> findByName(String name) {
-        return personRepository.findByName(name).map(this::mapDTO);
+    public Optional<PersonDto> findByUsername(String username) {
+        return personRepository.findByUsername(username).map(this::mapDTO);
     }
 
     public void deletePerson(String identifier) {
@@ -63,18 +65,16 @@ public class PersonService {
     }
 
     public Optional<PersonDto> createUser(PersonDto personDto) {
-        if (personRepository.findByName(personDto.getName()).isPresent()) {
+        if (personRepository.findByUsername(personDto.getUsername()).isPresent()) {
             throw new UsernameNotFoundException("Username is already taken!");
         }
-//        Person person = Optional.of(personDto).map(Person::new).get();
-        personDto.setPassword(passwordEncoder.encode(personDto.getPassword()));
         Person person = Optional.of(personDto).map(Person::new).get();
+        person.setPassword(passwordEncoder.encode(personDto.getPassword()));
         return Optional.of(personRepository.save(person)).map(PersonDto::new);
     }
 
     public PersonDto loginAccount(PersonDto personDto) throws AuthenticationException {
-//        Person loginUser =  Optional.of(personDto).map(Person::new).get();
-        Person checkUser = personRepository.findByName(personDto.getName())
+        Person checkUser = personRepository.findByUsername(personDto.getUsername())
                 .orElseThrow(() -> new UsernameNotFoundException("Invalid Username or password!"));
         if (passwordEncoder.matches(personDto.getPassword(), checkUser.getPassword()))
             return Optional.of(checkUser).map(PersonDto::new).get();
@@ -94,16 +94,13 @@ public class PersonService {
         Planner pl5 = Planner.builder().name("continuing education course").details("Drive to Vegas for continuing education course").start(LocalDate.of(2020, 1, 2)).end(LocalDate.of(2020, 1, 18)).color("blue").build();
         Planner pl6 = Planner.builder().name("Don`t eat sweets").details("Doctor said I should not eat sweets for a while").start(LocalDate.of(2020, 1, 12)).end(LocalDate.of(2020, 1, 20)).color("blue").build();
 
+
         kurtplanner.add(pl1);
         kurtplanner.add(pl2);
         sepplanner.add(pl3);
         sepplanner.add(pl4);
         jochenplanner.add(pl5);
         jochenplanner.add(pl6);
-
-        Person p1 = Person.builder().name("kurt").password("kurt").address("Kurtstraße 1").bday(LocalDate.of(1980, 1, 1)).planner(kurtplanner).build();
-        Person p2 = Person.builder().name("sepp").password("sepp").address("Seppstraße 1").bday(LocalDate.of(1980, 1, 1)).planner(sepplanner).build();
-        Person p3 = Person.builder().name("jochen").password("jochen").address("Jochenstraße 1").bday(LocalDate.of(1980, 1, 1)).planner(jochenplanner).build();
 
         plannerService.savePlanner(Optional.of(pl1).map(PlannerDto::new).get());
         plannerService.savePlanner(Optional.of(pl2).map(PlannerDto::new).get());
@@ -112,8 +109,23 @@ public class PersonService {
         plannerService.savePlanner(Optional.of(pl5).map(PlannerDto::new).get());
         plannerService.savePlanner(Optional.of(pl6).map(PlannerDto::new).get());
 
+
+        Person p1 = Person.builder().username("kurt").password("kurt").address("Kurtstraße 1").bday(LocalDate.of(1980, 1, 1)).planner(kurtplanner).build();
+        Person p2 = Person.builder().username("sepp").password("sepp").address("Seppstraße 1").bday(LocalDate.of(1980, 1, 1)).planner(sepplanner).build();
+        Person p3 = Person.builder().username("jochen").password("jochen").address("Jochenstraße 1").bday(LocalDate.of(1980, 1, 1)).planner(jochenplanner).build();
+
+
         createUser(Optional.of(p1).map(PersonDto::new).get());
         createUser(Optional.of(p2).map(PersonDto::new).get());
         createUser(Optional.of(p3).map(PersonDto::new).get());
     }
+
+    @Override
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        Optional<PersonDto> acc = findByUsername(s);
+        return new User(acc.get().getUsername(), acc.get().getPassword(), new ArrayList<>());
+
+    }
+
+
 }

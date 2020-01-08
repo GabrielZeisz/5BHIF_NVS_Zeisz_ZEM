@@ -17,7 +17,7 @@ import java.util.List;
 @ToString
 public class Person extends AbstractModel {
 
-    private String name;
+    private String username;
 
     private String password;
 
@@ -25,12 +25,13 @@ public class Person extends AbstractModel {
 
     private String address;
 
+    // , mappedBy = "person"
     @OneToMany(cascade = CascadeType.PERSIST)
     private List<Planner> planner;
 
     public Person(PersonDto personDto) {
         super(personDto);
-        this.name = personDto.getName();
+        this.username = personDto.getUsername();
         this.password = personDto.getPassword();
         this.bday = personDto.getBday();
         this.address = personDto.getAddress();

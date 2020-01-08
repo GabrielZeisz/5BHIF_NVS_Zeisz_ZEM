@@ -29,9 +29,9 @@ public class PersonController extends AbstractController<PersonDto> {
                 .collect(Collectors.toList()));
     }
 
-    @GetMapping(params = "name")
-    public ResponseEntity<PersonDto> findByName(@RequestParam String name) {
-        return ResponseEntity.of(personService.findByName(name));
+    @GetMapping(params = "username")
+    public ResponseEntity<PersonDto> findByUsername(@RequestParam String username) {
+        return ResponseEntity.of(personService.findByUsername(username));
     }
 
     @PostMapping
@@ -72,6 +72,8 @@ public class PersonController extends AbstractController<PersonDto> {
         }
     }
 
+
+
     @PostMapping(path="/register")
     public ResponseEntity<Optional<PersonDto>> registerUser(@RequestBody PersonDto personDto){
         try {
@@ -80,5 +82,9 @@ public class PersonController extends AbstractController<PersonDto> {
             return new ResponseEntity(HttpStatus.CONFLICT);
         }
     }
+
+
+
+
 
 }

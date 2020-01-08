@@ -1,16 +1,10 @@
 package com.nvs.zeisz.nvs.model;
 
-
 import com.nvs.zeisz.nvs.service.dtos.PlannerDto;
 import lombok.*;
 
 import javax.persistence.*;
-import java.awt.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -24,6 +18,9 @@ public class Planner extends AbstractModel {
     private LocalDate start; //  = new LocalDateTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     private LocalDate end; //  = new LocalDateTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     private String color;
+
+//  @ManyToOne(cascade = CascadeType.PERSIST)
+//    private Person person;
 
     public Planner(PlannerDto plannerDto) {
         super(plannerDto);

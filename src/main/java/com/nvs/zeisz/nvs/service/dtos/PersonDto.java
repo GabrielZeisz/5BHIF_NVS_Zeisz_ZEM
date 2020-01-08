@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class PersonDto extends AbstractDto {
-    private String name;
+    private String username;
 
     private String password;
 
@@ -26,7 +26,7 @@ public class PersonDto extends AbstractDto {
 
     public PersonDto(Person person) {
         super(person.getIdentifier());
-        this.name = person.getName();
+        this.username = person.getUsername();
         this.password = person.getPassword();
         this.bday = person.getBday();
         this.address = person.getAddress();
